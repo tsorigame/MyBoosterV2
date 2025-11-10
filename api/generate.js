@@ -70,7 +70,7 @@ export default async function handler(req, res) {
     // 7. שליחת הבקשה לג'מיני
     const response = await fetch(API_URL, {
       method: 'POST',
-      headers: { 'Content-Type': 'application-json' },
+      headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({
         contents: [{ parts: [{ text: prompt }] }],
       }),
@@ -94,3 +94,4 @@ export default async function handler(req, res) {
     res.status(500).json({ error: error.message });
   }
 }
+
