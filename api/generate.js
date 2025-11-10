@@ -1,8 +1,9 @@
-// קוד זה רץ בשרת Node.js מאובטח ב-Vercel
+// קוד זה רץ בשרת Node.js מאובטח ב-Vercel (בתחביר CommonJS)
 
-export default async function handler(req, res) {
+// הפונקציה הראשית שמטפלת בבקשות
+module.exports = async (req, res) => {
   
-  // 1. הגדרות אבטחה (CORS) - מתאים ל-Node.js
+  // 1. הגדרות אבטחה (CORS)
   res.setHeader('Access-Control-Allow-Origin', '*');
   res.setHeader('Access-Control-Allow-Methods', 'POST, OPTIONS');
   res.setHeader('Access-Control-Allow-Headers', 'Content-Type');
@@ -67,10 +68,12 @@ export default async function handler(req, res) {
 
     const API_URL = `https://generativelanguage.googleapis.com/v1beta/models/gemini-pro:generateContent?key=${GEMINI_API_KEY}`;
 
-    // 7. שליחת הבקשה לג'מיני
+    // 7. שליחת הבקשה לג'מיני (דורש import דינמי)
+    const fetch = (await import('node-fetch')).default;
+    
     const response = await fetch(API_URL, {
       method: 'POST',
-      headers: { 'Content-Type': 'application/json' }, // <-- התיקון הקריטי
+      headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({
         contents: [{ parts: [{ text: prompt }] }],
       }),
@@ -93,4 +96,4 @@ export default async function handler(req, res) {
     console.error('שגיאה ב-Function:', error);
     res.status(500).json({ error: error.message });
   }
-}
+};
