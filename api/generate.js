@@ -1,9 +1,3 @@
-// קוד זה רץ בשרת מאובטח (Vercel Edge Function)
-// הוא מקבל את הפוסט מהתוסף, ושולח אותו לג'מיני עם המפתח הסודי שלך
-
-export const config = {
-  runtime: 'edge', // הפעל כ-Edge Function מהיר
-};
 
 // הפונקציה הראשית שמטפלת בבקשות
 export default async function handler(req) {
@@ -86,4 +80,5 @@ export default async function handler(req) {
       headers: headers,
     });
   }
+
 }
