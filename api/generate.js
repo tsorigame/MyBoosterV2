@@ -1,7 +1,7 @@
 // קוד זה רץ בשרת Node.js מאובטח ב-Vercel
 
 export default async function handler(req, res) {
-  
+
   // 1. הגדרות אבטחה (CORS) - מתאים ל-Node.js
   res.setHeader('Access-Control-Allow-Origin', '*');
   res.setHeader('Access-Control-Allow-Methods', 'POST, OPTIONS');
@@ -29,7 +29,7 @@ export default async function handler(req, res) {
     if (!GEMINI_API_KEY) {
       throw new Error("מפתח API של ג'מיני לא הוגדר בשרת");
     }
-    
+
     // 6. בניית הפרומפט הדינמי (עם ניר אידלמן)
     let prompt;
 
@@ -70,7 +70,7 @@ export default async function handler(req, res) {
     // 7. שליחת הבקשה לג'מיני
     const response = await fetch(API_URL, {
       method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
+      headers: { 'Content-Type': 'application/json' }, // <-- התיקון נמצא כאן
       body: JSON.stringify({
         contents: [{ parts: [{ text: prompt }] }],
       }),
@@ -94,4 +94,3 @@ export default async function handler(req, res) {
     res.status(500).json({ error: error.message });
   }
 }
-
